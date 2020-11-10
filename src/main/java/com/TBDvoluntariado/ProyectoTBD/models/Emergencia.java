@@ -1,8 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
-
 import java.sql.Date;
 
-public class emergencia {
+public class Emergencia {
     private Integer id;
     private Integer id_institucion;
     private String nombre;
@@ -10,13 +9,20 @@ public class emergencia {
     private Date ffin;
     private String descrip;
 
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getId_institucion() {
+        return id_institucion;
+    }
+
+    public void setId_institucion(Integer id_institucion) {
+        this.id_institucion = id_institucion;
     }
 
     public String getNombre() {
@@ -51,13 +57,5 @@ public class emergencia {
         this.descrip = descrip;
     }
 
-    public Integer getId_institucion() {
-        return id_institucion;
-    }
-
-    public void setId_institucion(Integer id_institucion) {
-        this.id_institucion = id_institucion;
-    }
-    
     
 }
