@@ -1,10 +1,10 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
+import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
 import com.TBDvoluntariado.ProyectoTBD.repositories.EmergenciaRepository;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -15,10 +15,22 @@ public class EmergenciaService {
         this.emergenciaRepository = emergenciaRepository;
     }
 
-    @GetMapping("/emergencia/count")
-    public String countEmergencia(){
-        int total = emergenciaRepository.countEmergencia();
+    @GetMapping("/emergencias")
+    public List<Emergencia> getAllEmergencias() {
+        return emergenciaRepository.getAllEmergencias();
+    }
+
+    @GetMapping("/emergencias/count")
+    public String countEmergencias(){
+        int total = emergenciaRepository.countEmergencias();
         return String.format("Tienes %s emergencias!!", total);
+    }
+
+    @PostMapping("/emergencia")
+    @ResponseBody
+    public Emergencia createEmergencia(@RequestBody Emergencia emergencia){
+        Emergencia result = emergenciaRepository.createEmergencia(emergencia);
+        return result;
     }
     
 }
