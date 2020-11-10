@@ -1,6 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
-public class vol_habilidad {
+public class Vol_habilidad {
     private Integer id;
     private Integer id_habilidad;
     private Integer id_voluntario;

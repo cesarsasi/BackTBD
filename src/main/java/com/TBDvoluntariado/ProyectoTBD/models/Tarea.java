@@ -2,7 +2,7 @@ package com.TBDvoluntariado.ProyectoTBD.models;
 
 import java.sql.Date;
 
-public class tarea {
+public class Tarea {
     private Integer id;
     private Integer id_emergencia;
     private Integer id_estado;

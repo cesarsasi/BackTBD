@@ -1,6 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
-public class estado_tarea {
+public class Habilidad {
     private Integer id;
     private String descrip;
 

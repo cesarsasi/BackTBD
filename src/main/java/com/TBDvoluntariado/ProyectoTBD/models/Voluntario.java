@@ -1,13 +1,11 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
-public class institucion {
+import java.sql.Date;
+
+public class Voluntario {
     private Integer id;
     private String nombre;
-    private String descrip;
-
-    public String getDescrip() {
-        return descrip;
-    }
+    private Date fnacimiento;
 
     public Integer getId() {
         return id;
@@ -17,16 +15,20 @@ public class institucion {
         this.id = id;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Date getFnacimiento() {
+        return fnacimiento;
+    }
+
+    public void setFnacimiento(Date fnacimiento) {
+        this.fnacimiento = fnacimiento;
     }
     
 }

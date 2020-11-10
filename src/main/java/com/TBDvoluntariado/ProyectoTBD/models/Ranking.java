@@ -1,6 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
-public class ranking {
+public class Ranking {
     private Integer id;
     private Integer id_tarea;
     private Integer id_voluntario;
