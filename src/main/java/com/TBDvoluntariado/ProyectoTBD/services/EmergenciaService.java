@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
+import com.TBDvoluntariado.ProyectoTBD.models.Estado_tarea;
 import com.TBDvoluntariado.ProyectoTBD.repositories.EmergenciaRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value = "emergencias")
 public class EmergenciaService {
 
     private final EmergenciaRepository emergenciaRepository;
@@ -15,18 +17,26 @@ public class EmergenciaService {
         this.emergenciaRepository = emergenciaRepository;
     }
 
-    @GetMapping("/emergencias")
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ResponseBody
     public List<Emergencia> getAllEmergencias() {
         return emergenciaRepository.getAllEmergencias();
     }
 
-    @GetMapping("/emergencias/count")
+    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @ResponseBody
     public String countEmergencias(){
         int total = emergenciaRepository.countEmergencias();
         return String.format("Tienes %s emergencias!!", total);
     }
 
-    @PostMapping("/emergencia")
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Emergencia getEmergenciaById(@PathVariable(value = "id") Integer id){
+        return this.emergenciaRepository.getEmergenciaById(id);
+    }
+
+    @PostMapping("/createEmergencia")
     @ResponseBody
     public Emergencia createEmergencia(@RequestBody Emergencia emergencia){
         Emergencia result = emergenciaRepository.createEmergencia(emergencia);

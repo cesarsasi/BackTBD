@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -28,6 +29,18 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
             return conn.createQuery("select * from eme_habilidad")
                     .executeAndFetch(Eme_habilidad.class);
         } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Eme_habilidad getEme_habilidadById(Integer id){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM eme_habilidad WHERE id = :v_id")
+                    .addParameter("v_id", id)
+                    .executeAndFetchFirst(Eme_habilidad.class);
+        }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
         }

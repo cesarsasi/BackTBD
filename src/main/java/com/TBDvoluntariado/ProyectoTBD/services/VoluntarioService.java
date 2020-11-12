@@ -29,7 +29,7 @@ public class VoluntarioService {
     }
 
 
-    @PostMapping("createVoluntario")
+    @PostMapping("/createVoluntario")
     @ResponseBody
     public Voluntario createVoluntario(@RequestBody Voluntario v){
         Voluntario newVoluntario = voluntarioRepository.createVoluntario(v);

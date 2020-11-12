@@ -2,6 +2,7 @@ package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Estado_tarea;
+import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -29,6 +30,18 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository{
             return conn.createQuery("select * from estado_tarea")
                     .executeAndFetch(Estado_tarea.class);
         } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Estado_tarea getEstado_tareaById(Integer id){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM estado_tarea WHERE id = :v_id")
+                    .addParameter("v_id", id)
+                    .executeAndFetchFirst(Estado_tarea.class);
+        }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
         }

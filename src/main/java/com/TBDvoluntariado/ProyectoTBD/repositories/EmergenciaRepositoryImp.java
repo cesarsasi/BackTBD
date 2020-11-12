@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
+import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -28,6 +29,18 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository {
             return conn.createQuery("select * from emergencia")
                     .executeAndFetch(Emergencia.class);
         } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Emergencia getEmergenciaById(Integer id){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM emergencia WHERE id = :v_id")
+                    .addParameter("v_id", id)
+                    .executeAndFetchFirst(Emergencia.class);
+        }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
         }
