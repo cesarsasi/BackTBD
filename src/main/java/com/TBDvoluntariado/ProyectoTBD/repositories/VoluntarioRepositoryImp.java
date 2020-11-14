@@ -35,7 +35,9 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
             return null;
         }
     }
-
+    /*
+        Metodo que obtiene el mayor ID de la tabla voluntario
+     */
     public int biggestId(){
         try(Connection conn = sql2o.open()){
             Voluntario temp = conn.createQuery("SELECT * FROM voluntario ORDER BY id DESC").executeAndFetchFirst(Voluntario.class);

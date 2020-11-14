@@ -8,5 +8,4 @@ public interface VoluntarioRepository {
     public List<Voluntario> getAllVoluntarios();
     public Voluntario getVoluntarioById(Integer id);
     public Voluntario createVoluntario(Voluntario voluntario);
-    public int biggestId();
 }
