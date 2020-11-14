@@ -42,8 +42,9 @@ public class Vol_habilidadRepositoryImp implements Vol_habilidadRepository{
 
     @Override
     public Vol_habilidad createVol_hab(Vol_habilidad vh, int hab_id, int v_id){
+
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO vol_habilidad (id_habilidad, id_voluntario) values(:hab_id, :v_id)")
+            Long insertedId = (Long) conn.createQuery("INSERT INTO vol_habilidad (id_habilidad, id_voluntario) values(:hab_id, :v_id)")
                     .addParameter("hab_id", hab_id)
                     .addParameter("v_id", v_id)
                     .executeUpdate().getKey();

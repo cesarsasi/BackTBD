@@ -1,15 +1,15 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
 public class Vol_habilidad {
-    private Integer id;
+    private Long id;
     private Integer id_habilidad;
     private Integer id_voluntario;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -36,15 +36,26 @@ public class VoluntarioRepositoryImp implements VoluntarioRepository{
         }
     }
 
+    public int biggestId(){
+        try(Connection conn = sql2o.open()){
+            Voluntario temp = conn.createQuery("SELECT * FROM voluntario ORDER BY id DESC").executeAndFetchFirst(Voluntario.class);
+            return temp.getId();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 1;
+        }
+    }
 
     @Override
     public Voluntario createVoluntario(Voluntario voluntario){
+        int id = this.biggestId() + 1;
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO voluntario (fnacimiento, nombre) values(:fnacimiento, :nombre)")
-                        .addParameter("fnacimiento", voluntario.getFnacimiento())
+            conn.createQuery("INSERT INTO voluntario (id, nombre, fnacimiento) VALUES(:id, :nombre, :fnacimiento)", true)
+                        .addParameter("id", id)
                         .addParameter("nombre", voluntario.getNombre())
+                        .addParameter("fnacimiento", voluntario.getFnacimiento())
                         .executeUpdate().getKey();
-            voluntario.setId(insertedId);
+            voluntario.setId(id);
             return voluntario;
         }catch (Exception e){
             System.out.println(e.getMessage());
