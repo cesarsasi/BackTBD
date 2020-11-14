@@ -8,4 +8,7 @@ public interface TareaRepository {
     public List<Tarea> getAllTareas();
     public Tarea getTareasByIds(Integer id_tarea, Integer id_emer, Integer id_est);
     public Tarea createTarea(Tarea tarea);
+    public int biggestId();
+    public Tarea getTareaById(Integer id);
+    public Tarea updateTarea(Integer id, Tarea tarea);
 }

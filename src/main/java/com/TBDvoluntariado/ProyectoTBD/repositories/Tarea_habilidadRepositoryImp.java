@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Tarea;
 import com.TBDvoluntariado.ProyectoTBD.models.Tarea_habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,10 +35,22 @@ public class Tarea_habilidadRepositoryImp implements Tarea_habilidadRepository{
         }
     }
 
+    public int biggestId() {
+        try (Connection conn = sql2o.open()) {
+            Tarea_habilidad temp = conn.createQuery("SELECT * FROM tarea_habilidad ORDER BY id DESC").executeAndFetchFirst(Tarea_habilidad.class);
+            return temp.getId();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 1;
+        }
+    }
+
     @Override
     public Tarea_habilidad createTarea_hab(Tarea_habilidad tarea_habilidad) {
+        int id = this.biggestId() + 1;
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO tarea_habilidad (id_emehab,id_tarea) values (:id_emehab,:id_tarea)", true)
+            int insertedId = (int) conn.createQuery("INSERT INTO tarea_habilidad (id, id_emehab,id_tarea) values (:id, :id_emehab,:id_tarea)", true)
+                    .addParameter("id", id)
                     .addParameter("id_emehab", tarea_habilidad.getId_emehab())
                     .addParameter("id_tarea", tarea_habilidad.getId_tarea())
                     .executeUpdate().getKey();

@@ -2,6 +2,7 @@ package com.TBDvoluntariado.ProyectoTBD.services;
 
 
 import com.TBDvoluntariado.ProyectoTBD.models.Tarea;
+import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import com.TBDvoluntariado.ProyectoTBD.repositories.TareaRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class TareaService {
         return this.tareaRepo.getAllTareas();
     }
 
-    @PostMapping("createVolHab")
+    @PostMapping("/create")
     @ResponseBody
     public Tarea createTarea(@RequestBody Tarea tarea){
         int emer_id = tarea.getId_emergencia();
@@ -35,6 +36,21 @@ public class TareaService {
         Integer cant_vol_inscritos = tarea.getCant_vol_inscritos();
         Integer cant_vol_requeridos = tarea.getCant_vol_requeridos();
         Tarea newTarea = tareaRepo.createTarea(tarea);
+        return newTarea;
+    }
+
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Tarea getTareaById(@PathVariable(value = "id") Integer id){
+        return this.tareaRepo.getTareaById(id);
+    }
+
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public Tarea updateTarea(@PathVariable(value = "id") Integer id, Tarea tarea){
+        
+        Tarea newTarea = tareaRepo.createTarea(tarea);
+        newTarea.setId(id);
         return newTarea;
     }
 }
