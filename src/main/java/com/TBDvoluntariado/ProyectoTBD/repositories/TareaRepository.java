@@ -10,5 +10,6 @@ public interface TareaRepository {
     public Tarea createTarea(Tarea tarea);
     public int biggestId();
     public Tarea getTareaById(Integer id);
-    public Tarea updateTarea(Integer id, Tarea tarea);
+    public void updateTarea(int id, Tarea tarea);
+    public void deleteTarea(int id, Tarea tarea);
 }

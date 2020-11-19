@@ -4,6 +4,16 @@ public class Tarea_habilidad {
     private Integer id;
     private Integer id_emehab;
     private Integer id_tarea;
+    private Integer invisible;
+
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
+    }
 
     public Integer getId() {
         return id;

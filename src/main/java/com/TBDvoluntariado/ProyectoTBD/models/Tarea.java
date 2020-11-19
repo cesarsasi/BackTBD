@@ -9,9 +9,18 @@ public class Tarea {
     private String nombre;
     private Date finicio;
     private Date ffin;
-    private String descripcion;
+    private String descrip;
     private Integer cant_vol_inscritos;
     private Integer cant_vol_requeridos;
+    private Integer invisible;
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
+    }
 
     public Integer getId() {
         return id;
@@ -62,11 +71,11 @@ public class Tarea {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return descrip;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descrip = descripcion;
     }
 
     public Integer getCant_vol_inscritos() {

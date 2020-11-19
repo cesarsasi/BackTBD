@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
 
+import com.TBDvoluntariado.ProyectoTBD.models.Tarea;
 import com.TBDvoluntariado.ProyectoTBD.models.Tarea_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.repositories.Tarea_habilidadRepository;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,18 @@ public class Tarea_habilidadService {
     public Tarea_habilidad createTarea_hab(@RequestBody Tarea_habilidad tarea_habilidad){
         Tarea_habilidad result = tarea_habilidadRepository.createTarea_hab(tarea_habilidad);
         return result;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateTarea_habilidad(@PathVariable(value = "id") int id, Tarea_habilidad tarea_habilidad){
+        tarea_habilidadRepository.updateTarea_habilidad(id, tarea_habilidad);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteTarea_habilidad(@PathVariable(value = "id") int id, Tarea_habilidad tarea_habilidad){
+        tarea_habilidadRepository.deleteTarea_habilidad(id, tarea_habilidad);
     }
 
 }
