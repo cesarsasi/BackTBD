@@ -4,6 +4,7 @@ public class Vol_habilidad {
     private int id;
     private Integer id_habilidad;
     private Integer id_voluntario;
+    private Integer invisible;
 
     public int getId() {
         return id;
@@ -28,4 +29,8 @@ public class Vol_habilidad {
     public void setId_voluntario(Integer id_voluntario) {
         this.id_voluntario = id_voluntario;
     }
+
+    public Integer getInvisible() { return invisible; }
+
+    public void setInvisible(Integer invisible) { this.invisible = invisible; }
 }

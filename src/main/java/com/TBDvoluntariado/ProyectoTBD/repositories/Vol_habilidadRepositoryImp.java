@@ -1,11 +1,13 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import com.TBDvoluntariado.ProyectoTBD.models.Vol_habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 
@@ -64,6 +66,54 @@ public class Vol_habilidadRepositoryImp implements Vol_habilidadRepository{
         }catch (Exception e){
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public void updateVh(int id, Vol_habilidad vh) {
+        String updateSql = "UPDATE vol_habilidad SET id_habilidad=:id_h, id_voluntario=:id_v WHERE id = :idParam";
+
+        try (Connection con = sql2o.open()) {
+            Vol_habilidad valorAntiguo = con.createQuery("SELECT * FROM vol_habilidad WHERE id = :idP")
+                    .addParameter("idP", id)
+                    .executeAndFetchFirst(Vol_habilidad.class);
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("idParam", id);
+            if(vh.getId_habilidad() != null){
+                consulta.addParameter("id_h", vh.getId_habilidad());
+            }else{
+                consulta.addParameter("id_h", valorAntiguo.getId_habilidad());
+            }
+            if(vh.getId_voluntario() != null){
+                consulta.addParameter("id_v", vh.getId_voluntario());
+            }else{
+                consulta.addParameter("id_v", valorAntiguo.getId_voluntario());
+            }
+            consulta.executeUpdate();
+            System.out.println("La tabla intermedia Voluntario_Habilidad se actualizo correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteVh(int id, Vol_habilidad vh) {
+        String deleteSql = "UPDATE vol_habilidad SET invisible=:invisible WHERE id = :idParam";
+        try (Connection con = sql2o.open()) {
+            Vol_habilidad valorAntiguo = con.createQuery("SELECT * FROM vol_habilidad WHERE id = :idPa")
+                    .addParameter("idPa", id)
+                    .executeAndFetchFirst(Vol_habilidad.class);
+            Query consulta = con.createQuery(deleteSql);
+            consulta.addParameter("idParam", id);
+            if(vh.getInvisible() != null){
+                consulta.addParameter("invisible", vh.getInvisible());
+            }else{
+                consulta.addParameter("invisible", valorAntiguo.getInvisible());
+            }
+            consulta.executeUpdate();
+            System.out.println("El voluntario se elimino correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -8,4 +8,6 @@ public interface VoluntarioRepository {
     public List<Voluntario> getAllVoluntarios();
     public Voluntario getVoluntarioById(Integer id);
     public Voluntario createVoluntario(Voluntario voluntario);
+    public void updateVoluntario(int id, Voluntario voluntario);
+    public void deleteVoluntario(int id, Voluntario voluntario);
 }
