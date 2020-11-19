@@ -1,5 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
+import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,24 +46,39 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository {
             return null;
         }
     }
+    /*
+        Metodo que obtiene el mayor ID de la tabla emergencia
+     */
+    public int biggestIdEme(){
+        try(Connection conn = sql2o.open()){
+            Emergencia temp = conn.createQuery("SELECT * FROM emergencia ORDER BY id DESC").executeAndFetchFirst(Emergencia.class);
+            return temp.getId();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return 1;
+        }
+    }
 
     @Override
-    public Emergencia createEmergencia(Emergencia emergencia) {
+    public Emergencia createEmergencia(Emergencia emergencia){
+        int id = this.biggestIdEme() + 1;
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO emergencia (nombre,id_institucion,finicio,ffin,descrip) values (:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip)", true)
+            conn.createQuery("INSERT INTO emergencia (id,nombre,id_institucion,finicio,ffin,descrip) values (:id,:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip)", true)
+                    .addParameter("id", id)
                     .addParameter("emergenciaNombre", emergencia.getNombre())
                     .addParameter("id_institucion", emergencia.getId_institucion())
                     .addParameter("finicio", emergencia.getFinicio())
                     .addParameter("ffin", emergencia.getFfin())
                     .addParameter("descrip", emergencia.getDescrip())
                     .executeUpdate().getKey();
-            emergencia.setId(insertedId);
+            emergencia.setId(id);
             return emergencia;
-        }catch(Exception e){
+        }catch (Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return  null;
         }
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
+import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,19 +47,33 @@ public class HabilidadRepositoryImp implements HabilidadRepository{
         }
     }
 
-    @Override
-    public Habilidad createHabilidad(Habilidad habilidad) {
+    /*
+        Metodo que obtiene el mayor ID de la tabla habilidad
+     */
+    public int biggestIdHab(){
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO habilidad (descrip) values (:descrip)", true)
-                    .addParameter("descrip", habilidad.getDescrip())
-                    .executeUpdate()
-                    .getKey();
-            habilidad.setId(insertedId);
-
-            return habilidad;
+            Habilidad temp = conn.createQuery("SELECT * FROM habilidad ORDER BY id DESC").executeAndFetchFirst(Habilidad.class);
+            return temp.getId();
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return 1;
         }
     }
+
+    @Override
+    public Habilidad createHabilidad(Habilidad habilidad){
+        int id = this.biggestIdHab() + 1;
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("INSERT INTO habilidad (id,descrip) values (:id,:descrip)", true)
+                    .addParameter("id", id)
+                    .addParameter("descrip", habilidad.getDescrip())
+                    .executeUpdate().getKey();
+            habilidad.setId(id);
+            return habilidad;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return  null;
+        }
+    }
+
 }

@@ -47,17 +47,33 @@ public class Estado_tareaRepositoryImp implements Estado_tareaRepository{
         }
     }
 
-    @Override
-    public Estado_tarea createEstado_tarea(Estado_tarea estado_tarea) {
+    /*
+        Metodo que obtiene el mayor ID de la tabla Estado_tarea
+     */
+    public int biggestIdEstado_tarea(){
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO estado_tarea (descrip) values (:descrip)", true)
-                    .addParameter("descrip", estado_tarea.getDescrip())
-                    .executeUpdate().getKey();
-            estado_tarea.setId(insertedId);
-            return estado_tarea;
+            Estado_tarea temp = conn.createQuery("SELECT * FROM estado_tarea ORDER BY id DESC").executeAndFetchFirst(Estado_tarea.class);
+            return temp.getId();
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return 1;
         }
     }
+
+    @Override
+    public Estado_tarea createEstado_tarea(Estado_tarea estado_tarea){
+        int id = this.biggestIdEstado_tarea() + 1;
+        try(Connection conn = sql2o.open()){
+            conn.createQuery("INSERT INTO estado_tarea (id,descrip) values (:id,:descrip)", true)
+                    .addParameter("id", id)
+                    .addParameter("descrip", estado_tarea.getDescrip())
+                    .executeUpdate().getKey();
+            estado_tarea.setId(id);
+            return estado_tarea;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return  null;
+        }
+    }
+
 }
