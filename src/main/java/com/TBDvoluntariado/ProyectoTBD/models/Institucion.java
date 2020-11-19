@@ -4,6 +4,7 @@ public class Institucion {
     private Integer id;
     private String nombre;
     private String descrip;
+    private Integer invisible;
 
     public String getDescrip() {
         return descrip;
@@ -27,6 +28,14 @@ public class Institucion {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
     }
     
 }

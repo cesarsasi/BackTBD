@@ -1,11 +1,11 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
 public class Vol_habilidad {
-    private Integer id;
+    private int id;
     private Integer id_habilidad;
     private Integer id_voluntario;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

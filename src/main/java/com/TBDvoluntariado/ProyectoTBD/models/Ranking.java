@@ -7,6 +7,7 @@ public class Ranking {
     private Integer puntaje;
     private Integer flg_invitado;
     private Integer flg_participa;
+    private Integer invisible;
 
     public Integer getId() {
         return id;
@@ -54,6 +55,14 @@ public class Ranking {
 
     public void setFlg_participa(Integer flg_participa) {
         this.flg_participa = flg_participa;
+    }
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
     }
 
 

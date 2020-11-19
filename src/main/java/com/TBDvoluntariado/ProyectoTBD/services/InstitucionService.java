@@ -8,27 +8,47 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value = "institucion")
 public class InstitucionService {
     private final InstitucionRepository institucionRepository;
+
     InstitucionService(InstitucionRepository institucionRepository) {
         this.institucionRepository = institucionRepository;
     }
 
-    @GetMapping("/instituciones")
-    public List<Institucion> getAllInstituciones(){
+    @GetMapping("/getAll")
+    public List<Institucion> getAllInstituciones() {
         return institucionRepository.getAllInstituciones();
     }
 
-    @GetMapping("/instituciones/count")
-    public String countInstituciones(){
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Institucion getInstitucionById(@PathVariable(value = "id") Integer id) {
+        return this.institucionRepository.getInstitucionById(id);
+    }
+
+    @GetMapping("/count")
+    public String countInstituciones() {
         int total = institucionRepository.countInstituciones();
         return String.format("Tienes %s instituciones!!", total);
     }
 
-    @PostMapping("/institucion")
+    @PostMapping("/createInstitucion")
     @ResponseBody
-    public Institucion createInstitucion(@RequestBody Institucion institucion){
+    public Institucion createInstitucion(@RequestBody Institucion institucion) {
         Institucion result = institucionRepository.createInstitucion(institucion);
         return result;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateInstitucion(@PathVariable(value = "id") int id, Institucion institucion) {
+        institucionRepository.updateInstitucion(id, institucion);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteInstitucion(@PathVariable(value = "id") int id, Institucion institucion){
+        institucionRepository.deleteInstitucion(id, institucion);
     }
 }
