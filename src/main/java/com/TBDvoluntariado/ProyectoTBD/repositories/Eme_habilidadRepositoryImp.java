@@ -2,10 +2,12 @@ package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.util.List;
@@ -73,6 +75,53 @@ public class Eme_habilidadRepositoryImp implements Eme_habilidadRepository {
         }catch (Exception e){
             System.out.println(e.getMessage());
             return  null;
+        }
+    }
+
+    @Override
+    public void updateEme_habilidad(int id, Eme_habilidad eme_habilidad) {
+        String updateSql = "update eme_habilidad set id_emergencia=:id_emer, id_habilidad=:id_hab where id = :idParam";
+
+        try (Connection con = sql2o.open()) {
+            Eme_habilidad valorAntiguo = con.createQuery("SELECT * FROM eme_habilidad where id = :idP")
+                    .addParameter("idP", id)
+                    .executeAndFetchFirst(Eme_habilidad.class);
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("idParam", id);
+            if(eme_habilidad.getId_emergencia() != null){
+                consulta.addParameter("id_emer", eme_habilidad.getId_emergencia());
+            }else{
+                consulta.addParameter("id_emer", valorAntiguo.getId_emergencia());
+            }
+            if(eme_habilidad.getId_habilidad() != null){
+                consulta.addParameter("id_hab", eme_habilidad.getId_habilidad());
+            }else{
+                consulta.addParameter("id_hab", valorAntiguo.getId_habilidad());
+            }
+            consulta.executeUpdate();
+            System.out.println("La Emergencia_habilidad se actualizo correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    @Override
+    public void deleteEme_habilidad(int id, Eme_habilidad eme_habilidad){
+        String deleteSql = "update eme_habilidad set invisible=:invisible  where id = :idParam";
+        try (Connection con = sql2o.open()) {
+            Eme_habilidad valorAntiguo = con.createQuery("SELECT * FROM eme_habilidad where id = :idPa")
+                    .addParameter("idPa", id)
+                    .executeAndFetchFirst(Eme_habilidad.class);
+            Query consulta = con.createQuery(deleteSql);
+            consulta.addParameter("idParam", id);
+            if(eme_habilidad.getInvisible() != null){
+                consulta.addParameter("invisible", eme_habilidad.getInvisible());
+            }else{
+                consulta.addParameter("invisible", valorAntiguo.getInvisible());
+            }
+            consulta.executeUpdate();
+            System.out.println("La Emergencia_habilidad se elimino correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

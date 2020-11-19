@@ -1,5 +1,6 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.models.Vol_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
@@ -31,5 +32,17 @@ public class Vol_habilidadService {
         int vol_id = v.getId();
         Vol_habilidad newVol_habilidad = vhRepo.createVol_hab(vol_hab, hab_id, vol_id);
         return newVol_habilidad;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateVh(@PathVariable(value = "id") int id, Vol_habilidad vh) {
+        vhRepo.updateVh(id, vh);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteVol_habilidad(@PathVariable(value = "id") int id, Vol_habilidad vh){
+        vhRepo.deleteVh(id, vh);
     }
 }

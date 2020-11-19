@@ -2,6 +2,7 @@ package com.TBDvoluntariado.ProyectoTBD.services;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.repositories.Eme_habilidadRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,18 @@ public class Eme_habilidadService {
     public Eme_habilidad createEmergencia(@RequestBody Eme_habilidad eme_habilidad){
         Eme_habilidad result = eme_habilidadRepository.createEme_hab(eme_habilidad);
         return result;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateEme_habilidad(@PathVariable(value = "id") int id, Eme_habilidad eme_habilidad) {
+        eme_habilidadRepository.updateEme_habilidad(id, eme_habilidad);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteEme_habilidad(@PathVariable(value = "id") int id, Eme_habilidad eme_habilidad){
+        eme_habilidadRepository.deleteEme_habilidad(id, eme_habilidad);
     }
 
 }

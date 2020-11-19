@@ -1,11 +1,13 @@
 package com.TBDvoluntariado.ProyectoTBD.repositories;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Estado_tarea;
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.util.List;
@@ -73,6 +75,48 @@ public class HabilidadRepositoryImp implements HabilidadRepository{
         }catch (Exception e){
             System.out.println(e.getMessage());
             return  null;
+        }
+    }
+
+    @Override
+    public void updateHabilidad(int id, Habilidad habilidad) {
+        String updateSql = "update habilidad set descrip=:descrip where id = :idParam";
+
+        try (Connection con = sql2o.open()) {
+            Habilidad valorAntiguo = con.createQuery("SELECT * FROM habilidad where id = :idP")
+                    .addParameter("idP", id)
+                    .executeAndFetchFirst(Habilidad.class);
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("idParam", id);
+            if(habilidad.getDescrip() != null){
+                consulta.addParameter("descrip", habilidad.getDescrip());
+            }else{
+                consulta.addParameter("descrip", valorAntiguo.getDescrip());
+            }
+            consulta.executeUpdate();
+            System.out.println("La Habilidad se actualizo correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    @Override
+    public void deleteHabilidad(int id, Habilidad habilidad){
+        String deleteSql = "update habilidad set invisible=:invisible  where id = :idParam";
+        try (Connection con = sql2o.open()) {
+            Habilidad valorAntiguo = con.createQuery("SELECT * FROM habilidad where id = :idPa")
+                    .addParameter("idPa", id)
+                    .executeAndFetchFirst(Habilidad.class);
+            Query consulta = con.createQuery(deleteSql);
+            consulta.addParameter("idParam", id);
+            if(habilidad.getInvisible() != null){
+                consulta.addParameter("invisible", habilidad.getInvisible());
+            }else{
+                consulta.addParameter("invisible", valorAntiguo.getInvisible());
+            }
+            consulta.executeUpdate();
+            System.out.println("La Habilidad se elimino correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

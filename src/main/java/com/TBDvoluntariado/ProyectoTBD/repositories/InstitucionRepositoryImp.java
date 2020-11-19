@@ -100,6 +100,7 @@ public class InstitucionRepositoryImp implements InstitucionRepository{
             System.out.println(e.getMessage());
         }
     }
+
     @Override
     public void deleteInstitucion(int id, Institucion institucion){
         String deleteSql = "update institucion set invisible=:invisible  where id = :idParam";

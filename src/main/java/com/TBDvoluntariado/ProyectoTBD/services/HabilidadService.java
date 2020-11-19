@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Habilidad;
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.models.Voluntario;
 import com.TBDvoluntariado.ProyectoTBD.repositories.HabilidadRepository;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,17 @@ public class HabilidadService {
     public Habilidad createHabilidad(@RequestBody Habilidad habilidad){
         Habilidad result = habilidadRepository.createHabilidad(habilidad);
         return result;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateHabilidad(@PathVariable(value = "id") int id, Habilidad habilidad) {
+        habilidadRepository.updateHabilidad(id, habilidad);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteHabilidad(@PathVariable(value = "id") int id, Habilidad habilidad){
+        habilidadRepository.updateHabilidad(id, habilidad);
     }
 }

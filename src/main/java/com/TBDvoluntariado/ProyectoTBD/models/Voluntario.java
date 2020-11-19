@@ -6,6 +6,7 @@ public class Voluntario {
     private Integer id;
     private String nombre;
     private Date fnacimiento;
+    private Integer invisible;
 
     public Integer getId() {
         return id;
@@ -19,16 +20,13 @@ public class Voluntario {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Date getFnacimiento() {
-        return fnacimiento;
-    }
+    public Date getFnacimiento() { return fnacimiento; }
 
-    public void setFnacimiento(Date fnacimiento) {
-        this.fnacimiento = fnacimiento;
-    }
-    
+    public void setFnacimiento(Date fnacimiento) { this.fnacimiento = fnacimiento; }
+
+    public Integer getInvisible() { return invisible; }
+
+    public void setInvisible(Integer invisible) { this.invisible = invisible; }
 }
