@@ -4,6 +4,7 @@ public class Eme_habilidad {
     private Integer id;
     private Integer id_emergencia;
     private Integer id_habilidad;
+    private Integer invisible;
 
     public Integer getId() {
         return id;
@@ -29,5 +30,12 @@ public class Eme_habilidad {
         this.id_habilidad = id_habilidad;
     }
 
-    
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
+    }
 }

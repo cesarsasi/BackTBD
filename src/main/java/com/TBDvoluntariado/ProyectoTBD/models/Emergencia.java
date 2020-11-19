@@ -8,6 +8,7 @@ public class Emergencia {
     private Date finicio;
     private Date ffin;
     private String descrip;
+    private Integer invisible;
 
     public Integer getId() {
         return id;
@@ -56,6 +57,15 @@ public class Emergencia {
     public void setDescrip(String descrip) {
         this.descrip = descrip;
     }
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
+    }
+
 
     
 }

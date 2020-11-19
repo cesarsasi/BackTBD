@@ -3,6 +3,7 @@ package com.TBDvoluntariado.ProyectoTBD.models;
 public class Habilidad {
     private Integer id;
     private String descrip;
+    private Integer invisible;
 
     public String getDescrip() {
         return descrip;
@@ -19,5 +20,12 @@ public class Habilidad {
     public void setDescrip(String descrip) {
         this.descrip = descrip;
     }
-    
+
+    public Integer getInvisible() {
+        return invisible;
+    }
+
+    public void setInvisible(Integer invisible) {
+        this.invisible = invisible;
+    }
 }

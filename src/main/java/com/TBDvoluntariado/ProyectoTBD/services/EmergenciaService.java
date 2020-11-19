@@ -2,6 +2,7 @@ package com.TBDvoluntariado.ProyectoTBD.services;
 
 import com.TBDvoluntariado.ProyectoTBD.models.Emergencia;
 import com.TBDvoluntariado.ProyectoTBD.models.Estado_tarea;
+import com.TBDvoluntariado.ProyectoTBD.models.Institucion;
 import com.TBDvoluntariado.ProyectoTBD.repositories.EmergenciaRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,18 @@ public class EmergenciaService {
     public Emergencia createEmergencia(@RequestBody Emergencia emergencia){
         Emergencia result = emergenciaRepository.createEmergencia(emergencia);
         return result;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateEmergencia(@PathVariable(value = "id") int id, Emergencia emergencia) {
+        emergenciaRepository.updateEmergencia(id, emergencia);
+    }
+
+    @PutMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteEmergencia(@PathVariable(value = "id") int id, Emergencia emergencia){
+        emergenciaRepository.deleteEmergencia(id, emergencia);
     }
     
 }
