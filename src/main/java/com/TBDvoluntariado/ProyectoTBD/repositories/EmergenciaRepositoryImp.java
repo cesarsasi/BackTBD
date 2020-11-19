@@ -82,7 +82,7 @@ public class EmergenciaRepositoryImp implements EmergenciaRepository {
 
     @Override
     public void updateEmergencia(int id, Emergencia emergencia) {
-        String updateSql = "update emergencia set emergenciaNombre=:emergenciaNombre,id_institucion=:id_institucion,finicio=:finicio,ffin=:ffin,descrip=:descrip where id = :idParam";
+        String updateSql = "update emergencia set nombre=:emergenciaNombre,id_institucion=:id_institucion,finicio=:finicio,ffin=:ffin,descrip=:descrip where id = :idParam";
 
         try (Connection con = sql2o.open()) {
             Emergencia valorAntiguo = con.createQuery("SELECT * FROM emergencia where id = :idP")
