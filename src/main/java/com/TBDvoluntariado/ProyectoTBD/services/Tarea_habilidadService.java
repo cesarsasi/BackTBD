@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.services;
 
 
+import com.TBDvoluntariado.ProyectoTBD.models.Eme_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.models.Tarea;
 import com.TBDvoluntariado.ProyectoTBD.models.Tarea_habilidad;
 import com.TBDvoluntariado.ProyectoTBD.repositories.Tarea_habilidadRepository;
@@ -20,6 +21,12 @@ public class Tarea_habilidadService {
     @GetMapping("/getAll")
     public List<Tarea_habilidad> getAllTarea_habilidad() {
         return tarea_habilidadRepository.getAllTarea_habs();
+    }
+
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Tarea_habilidad getEme_habilidadById(@PathVariable(value = "id") Integer id){
+        return this.tarea_habilidadRepository.getTarea_habById(id);
     }
 
     @GetMapping("/count")

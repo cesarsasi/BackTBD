@@ -37,6 +37,18 @@ public class Tarea_habilidadRepositoryImp implements Tarea_habilidadRepository{
         }
     }
 
+    @Override
+    public Tarea_habilidad getTarea_habById(Integer id){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM tarea_habilidad WHERE id = :v_id")
+                    .addParameter("v_id", id)
+                    .executeAndFetchFirst(Tarea_habilidad.class);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public int biggestId() {
         try (Connection conn = sql2o.open()) {
             Tarea_habilidad temp = conn.createQuery("SELECT * FROM tarea_habilidad ORDER BY id DESC").executeAndFetchFirst(Tarea_habilidad.class);
@@ -51,12 +63,12 @@ public class Tarea_habilidadRepositoryImp implements Tarea_habilidadRepository{
     public Tarea_habilidad createTarea_hab(Tarea_habilidad tarea_habilidad) {
         int id = this.biggestId() + 1;
         try(Connection conn = sql2o.open()){
-            int insertedId = (int) conn.createQuery("INSERT INTO tarea_habilidad (id, id_emehab,id_tarea) values (:id, :id_emehab,:id_tarea)", true)
+            conn.createQuery("INSERT INTO tarea_habilidad (id, id_emehab,id_tarea) values (:id, :id_emehab,:id_tarea)", true)
                     .addParameter("id", id)
                     .addParameter("id_emehab", tarea_habilidad.getId_emehab())
                     .addParameter("id_tarea", tarea_habilidad.getId_tarea())
                     .executeUpdate().getKey();
-            tarea_habilidad.setId(insertedId);
+            tarea_habilidad.setId(id);
             return tarea_habilidad;
         }catch(Exception e){
             System.out.println(e.getMessage());
