@@ -58,7 +58,7 @@ public class TareaRepositoryImp implements TareaRepository{
         int id = this.biggestId() + 1;
 
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO tarea (id, id_emergencia, id_estado, nombre, finicio, ffin, descrip, cant_vol_inscritos, cant_vol_requeridos) values(:id, :id_emergencia, :id_estado, :nombre, :finicio, :ffin, :descrip, :cant_vol_inscritos, :cant_vol_requeridos)")
+            conn.createQuery("INSERT INTO tarea (id, id_emergencia, id_estado, nombre, finicio, ffin, descrip, cant_vol_inscritos, cant_vol_requeridos, invisible) values(:id, :id_emergencia, :id_estado, :nombre, :finicio, :ffin, :descrip, :cant_vol_inscritos, :cant_vol_requeridos, :invisible)")
                     .addParameter("id", id)
                     .addParameter("id_emergencia", tarea.getId_emergencia())
                     .addParameter("id_estado", tarea.getId_estado())
@@ -68,6 +68,7 @@ public class TareaRepositoryImp implements TareaRepository{
                     .addParameter("descrip", tarea.getDescripcion())
                     .addParameter("cant_vol_inscritos", tarea.getCant_vol_inscritos())
                     .addParameter("cant_vol_requeridos", tarea.getCant_vol_requeridos())
+                    .addParameter("invisible", tarea.getInvisible())
                     .executeUpdate().getKey();
 
             tarea.setId(id);
