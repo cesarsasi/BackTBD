@@ -97,7 +97,7 @@ public class TareaRepositoryImp implements TareaRepository{
 
     @Override
     public void updateTarea(int id, Tarea tarea) {
-        String updateSql = "update tarea set id_emergencia=:id_emer, nombre=:nombre, finicio=:finicio, ffin=:ffin, descrip=:descrip, cant_vol_inscritos=:cant_vol_inscritos, cant_vol_requeridos=:cant_vol_requeridos where id = :idParam";
+        String updateSql = "update tarea set id_emergencia=:id_emer, nombre=:nombre, finicio=:finicio, ffin=:ffin, descrip=:descrip, cant_vol_inscritos=:cant_vol_inscritos, cant_vol_requeridos=:cant_vol_requeridos, hora=:hora where id = :idParam";
 
         try (Connection con = sql2o.open()) {
             Tarea valorAntiguo = con.createQuery("SELECT * FROM tarea where id = :idP")
@@ -140,6 +140,11 @@ public class TareaRepositoryImp implements TareaRepository{
             }else{
                 consulta.addParameter("cant_vol_requeridos", valorAntiguo.getCant_vol_requeridos());
             }
+            if(tarea.getHora() != null){
+                consulta.addParameter("hora", tarea.getHora());
+            }else {
+                consulta.addParameter("hora", valorAntiguo.getHora());
+            }
             consulta.executeUpdate();
             System.out.println("La tarea se actualizo correctamente.");
         }catch(Exception e){
@@ -171,12 +176,22 @@ public class TareaRepositoryImp implements TareaRepository{
     @Override
     public List<Tarea> getInactivesTareas(){
         try(Connection conn = sql2o.open()){
-            System.out.println("try");
             return conn.createQuery("SELECT * FROM tarea where cant_vol_inscritos=0").executeAndFetch(Tarea.class);
         }catch(Exception e){
-            System.out.println("catch");
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public void deleteInactivesTareas(int hours) {
+        try(Connection conn = sql2o.open()){
+
+            conn.createQuery("SELECT deleteinactivestareas(hours)");
+            
+            System.out.println("Se eliminaron las tareas inactivas de hace " + hours + " horas.");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -26,10 +26,7 @@ public class TareaService {
 
     @PostMapping("/create")
     @ResponseBody
-    public Tarea createTarea(@RequestBody Tarea tarea){
-        Tarea result = tareaRepo.createTarea(tarea);
-        return result;
-    }
+    public Tarea createTarea(@RequestBody Tarea tarea){ return tareaRepo.createTarea(tarea); }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -48,5 +45,12 @@ public class TareaService {
     public void deleteTarea(@PathVariable(value = "id") int id, Tarea tarea){
         tareaRepo.deleteTarea(id, tarea);
     }
+
+    @RequestMapping(value = "/deleteOldWithHour/{hours}")
+    @ResponseBody
+    public void deleteInactives(@PathVariable(value="hours") int hours) {
+        tareaRepo.deleteInactivesTareas(hours);
+    }
+
 }
 
