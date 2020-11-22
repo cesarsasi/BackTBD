@@ -12,4 +12,5 @@ public interface TareaRepository {
     public Tarea getTareaById(Integer id);
     public void updateTarea(int id, Tarea tarea);
     public void deleteTarea(int id, Tarea tarea);
+    public List<Tarea> getInactivesTareas();
 }

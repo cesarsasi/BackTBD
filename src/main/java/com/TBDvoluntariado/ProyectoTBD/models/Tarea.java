@@ -1,6 +1,7 @@
 package com.TBDvoluntariado.ProyectoTBD.models;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Tarea {
     private Integer id;
@@ -13,6 +14,15 @@ public class Tarea {
     private Integer cant_vol_inscritos;
     private Integer cant_vol_requeridos;
     private Integer invisible;
+    private Time hora;
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
 
     public Integer getInvisible() {
         return invisible;
@@ -95,5 +105,5 @@ public class Tarea {
     }
 
 
-    
+
 }
