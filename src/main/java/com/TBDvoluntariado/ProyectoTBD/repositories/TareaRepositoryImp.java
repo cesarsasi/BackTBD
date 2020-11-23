@@ -184,12 +184,11 @@ public class TareaRepositoryImp implements TareaRepository{
     }
 
     @Override
-    public void deleteInactivesTareas(int hours) {
+    public void deleteInactivesTareas(int horas) {
         try(Connection conn = sql2o.open()){
-
-            conn.createQuery("SELECT deleteinactivestareas(hours)");
-            
-            System.out.println("Se eliminaron las tareas inactivas de hace " + hours + " horas.");
+            conn.createQuery("SELECT deleteinactivestareas(:horas)")
+                    .addParameter("horas", horas);
+            System.out.println("Se eliminaron las tareas inactivas de hace " + horas + " horas.");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
